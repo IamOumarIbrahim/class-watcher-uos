@@ -9,7 +9,8 @@
     "12129"
   ],
   "ignored_crns": [
-    "12769"
+    "12769",
+    "11990"
   ],
   "required": {
     "individual": {
@@ -36,7 +37,6 @@
     }
   },
   "watch_only": {
-    "DATA-A": "11990",
     "DATA-B": "11989",
     "TELE-LAB": "12781",
     "MICRO-LAB-EXTRA": "13538",
