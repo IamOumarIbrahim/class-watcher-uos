@@ -55,17 +55,20 @@ def send_test_notification() -> None:
 # ---------------------------------------------------------------------------
 
 def _send_ntfy(title: str, body: str, priority: str) -> None:
-    server = os.getenv("NTFY_SERVER", "https://ntfy.sh").rstrip("/")
-    topic = os.getenv("NTFY_TOPIC", "")
+    server = os.getenv("NTFY_SERVER", "https://ntfy.sh").strip().rstrip("/")
+    topic = os.getenv("NTFY_TOPIC", "").strip()
     if not topic:
         logger.warning("NTFY_TOPIC not set — skipping ntfy notification")
         return
-    if topic.startswith("<") or topic == "<long-random-private-topic>":
+    if topic.startswith("<"):
         logger.warning(
             "NTFY_TOPIC is still the placeholder value. "
             "Edit .env and set NTFY_TOPIC to your real private topic name."
         )
         return
+
+    url = f"{server}/{topic}"
+    logger.debug("ntfy POST → %s", url)
 
     ntfy_priority_map = {
         "critical": "urgent",
@@ -79,7 +82,7 @@ def _send_ntfy(title: str, body: str, priority: str) -> None:
 
     try:
         resp = requests.post(
-            f"{server}/{topic}",
+            url,
             data=full_body.encode("utf-8"),
             headers={
                 "Title": title,
