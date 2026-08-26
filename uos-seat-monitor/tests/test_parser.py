@@ -1,4 +1,4 @@
-﻿"""
+"""
 tests/test_parser.py
 
 Tests for Banner response parsing and seat evaluation logic.
@@ -285,3 +285,16 @@ def test_se_fallback_section_alert(monkeypatch):
     state = fresh_state()
     evaluate_and_alert(seats, state, cfg())
     assert any("SE" in a or "12015" in a for a in alerts_sent)
+
+
+def test_watch_only_crn_alert(monkeypatch):
+    alerts_sent = []
+    monkeypatch.setattr("monitor.send_alert", lambda t, b, priority="high": alerts_sent.append(t))
+
+    test_cfg = cfg()
+    test_cfg["watch_only"] = {"DATA-A": "11990"}
+    seats = {**CLOSED_SEATS, "11990": 5}
+    state = fresh_state()
+    evaluate_and_alert(seats, state, test_cfg)
+    assert any("11990" in a or "DATA" in a or "SEAT OPEN" in a for a in alerts_sent)
+

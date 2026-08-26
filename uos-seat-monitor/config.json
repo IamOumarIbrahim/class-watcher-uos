@@ -9,9 +9,7 @@
     "12129"
   ],
   "ignored_crns": [
-    "11990",
-    "12769",
-    "12781"
+    "12769"
   ],
   "required": {
     "individual": {
@@ -36,6 +34,13 @@
       "course_code": "1501366",
       "note": "Register exactly one SE section; 12014 preferred, 12015 fallback"
     }
+  },
+  "watch_only": {
+    "DATA-A": "11990",
+    "DATA-B": "11989",
+    "TELE-LAB": "12781",
+    "MICRO-LAB-EXTRA": "13538",
+    "COMM-B": "13732"
   },
   "poll_seconds": 30,
   "poll_jitter_seconds": 5

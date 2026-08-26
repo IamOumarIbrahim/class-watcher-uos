@@ -24,7 +24,7 @@ TERM_PAGE = f"{BASE_URL}/ssb/term/termSelection?mode=search"
 SEARCH_URL = f"{BASE_URL}/ssb/searchResults/searchResults"
 TERM_SUBMIT_URL = f"{BASE_URL}/ssb/term/search?mode=search"
 
-SUBJECTS = ["1501", "1502"]
+SUBJECTS = ["1501", "1502", "0402"]  # 0402 = Telecommunications
 
 PAGE_MAX = 500
 REQUEST_TIMEOUT = 20

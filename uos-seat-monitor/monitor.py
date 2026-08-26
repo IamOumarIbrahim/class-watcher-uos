@@ -60,13 +60,17 @@ def load_config() -> dict:
 def all_target_crns(cfg: dict) -> list[str]:
     """Return every CRN that must be monitored."""
     crns: list[str] = []
-    req = cfg["required"]
-    crns += list(req["individual"].values())
-    micro = req["micro"]
-    crns.append(micro["lecture"])
-    crns += micro["labs_in_preference_order"]
+    req = cfg.get("required", {})
+    if "individual" in req:
+        crns += list(req["individual"].values())
+    if "micro" in req:
+        micro = req["micro"]
+        crns.append(micro["lecture"])
+        crns += micro.get("labs_in_preference_order", [])
     se = req.get("se", {})
     crns += se.get("sections_in_preference_order", [])
+    watch_only = cfg.get("watch_only", {})
+    crns += list(watch_only.values())
     return crns
 
 
@@ -250,22 +254,27 @@ LABEL_MAP: dict[str, str] = {}  # populated by build_label_map
 
 
 def build_label_map(cfg: dict) -> None:
-    req = cfg["required"]
-    for name, crn in req["individual"].items():
-        LABEL_MAP[crn] = name
-    micro = req["micro"]
-    LABEL_MAP[micro["lecture"]] = "MICRO-LEC"
-    labs = micro["labs_in_preference_order"]
-    if labs:
-        LABEL_MAP[labs[0]] = "MICRO-LAB-PREF"
-    if len(labs) > 1:
-        LABEL_MAP[labs[1]] = "MICRO-LAB-FALL"
+    req = cfg.get("required", {})
+    if "individual" in req:
+        for name, crn in req["individual"].items():
+            LABEL_MAP[crn] = name
+    if "micro" in req:
+        micro = req["micro"]
+        LABEL_MAP[micro["lecture"]] = "MICRO-LEC"
+        labs = micro.get("labs_in_preference_order", [])
+        if labs:
+            LABEL_MAP[labs[0]] = "MICRO-LAB-PREF"
+        if len(labs) > 1:
+            LABEL_MAP[labs[1]] = "MICRO-LAB-FALL"
     se = req.get("se", {})
     se_crns = se.get("sections_in_preference_order", [])
     if se_crns:
         LABEL_MAP[se_crns[0]] = "SE-A"
     if len(se_crns) > 1:
         LABEL_MAP[se_crns[1]] = "SE-B"
+    watch_only = cfg.get("watch_only", {})
+    for name, crn in watch_only.items():
+        LABEL_MAP[crn] = name
 
 
 def _crn_label(crn: str, cfg: dict) -> str:
