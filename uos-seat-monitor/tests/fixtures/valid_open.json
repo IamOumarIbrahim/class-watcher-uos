@@ -1,0 +1,53 @@
+{
+  "data": [
+    {
+      "courseReferenceNumber": "12091",
+      "term": "202610",
+      "seatsAvailable": 0,
+      "waitAvailable": 12
+    },
+    {
+      "courseReferenceNumber": "12093",
+      "term": "202610",
+      "seatsAvailable": 0,
+      "waitAvailable": 5
+    },
+    {
+      "courseReferenceNumber": "12094",
+      "term": "202610",
+      "seatsAvailable": 0,
+      "waitAvailable": 3
+    },
+    {
+      "courseReferenceNumber": "12011",
+      "term": "202610",
+      "seatsAvailable": 0,
+      "waitAvailable": 0
+    },
+    {
+      "courseReferenceNumber": "12115",
+      "term": "202610",
+      "seatsAvailable": 2,
+      "waitAvailable": 0
+    },
+    {
+      "courseReferenceNumber": "12126",
+      "term": "202610",
+      "seatsAvailable": 0,
+      "waitAvailable": 8
+    },
+    {
+      "courseReferenceNumber": "12014",
+      "term": "202610",
+      "seatsAvailable": 0,
+      "waitAvailable": 0
+    },
+    {
+      "courseReferenceNumber": "12015",
+      "term": "202610",
+      "seatsAvailable": 0,
+      "waitAvailable": 0
+    }
+  ],
+  "totalCount": 8
+}

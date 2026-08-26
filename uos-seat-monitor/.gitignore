@@ -1,0 +1,13 @@
+﻿# Runtime generated files - never commit these
+.env
+state.json
+monitor.log
+*.log
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/

@@ -1,0 +1,28 @@
+﻿{
+  "term": {
+    "code": "202610",
+    "name": "Fall 2026/2027"
+  },
+  "registered_crns": ["11991", "12780", "12129"],
+  "ignored_crns": ["11990", "12769", "12781"],
+  "required": {
+    "individual": {
+      "OS":     "12011",
+      "COMM":   "12115",
+      "NETSEC": "12126"
+    },
+    "micro": {
+      "lecture": "12091",
+      "labs_in_preference_order": ["12093", "12094"],
+      "required_lab_count": 1
+    },
+    "se": {
+      "sections_in_preference_order": ["12014", "12015"],
+      "required_section_count": 1,
+      "course_code": "1501366",
+      "note": "Register exactly one SE section; 12014 preferred, 12015 fallback"
+    }
+  },
+  "poll_seconds": 30,
+  "poll_jitter_seconds": 5
+}
