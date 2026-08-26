@@ -1,4 +1,4 @@
-﻿"""
+"""
 monitor.py - Main polling loop for UoS seat monitor.
 
 Usage:
@@ -53,7 +53,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 def load_config() -> dict:
-    with open(CONFIG_PATH, encoding="utf-8") as f:
+    with open(CONFIG_PATH, encoding="utf-8-sig") as f:
         return json.load(f)
 
 

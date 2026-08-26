@@ -1,4 +1,4 @@
-﻿"""
+"""
 notifications.py - Notification delivery for UoS seat monitor.
 
 Channels:
@@ -60,6 +60,12 @@ def _send_ntfy(title: str, body: str, priority: str) -> None:
     if not topic:
         logger.warning("NTFY_TOPIC not set — skipping ntfy notification")
         return
+    if topic.startswith("<") or topic == "<long-random-private-topic>":
+        logger.warning(
+            "NTFY_TOPIC is still the placeholder value. "
+            "Edit .env and set NTFY_TOPIC to your real private topic name."
+        )
+        return
 
     ntfy_priority_map = {
         "critical": "urgent",
@@ -98,10 +104,16 @@ def _send_windows_toast(title: str, body: str) -> None:
     if sys.platform != "win32":
         return
     try:
-        from win10toast import ToastNotifier  # type: ignore
+        from winotify import Notification, audio  # type: ignore
 
-        toaster = ToastNotifier()
-        toaster.show_toast(title, body, duration=10, threaded=True)
+        toast = Notification(
+            app_id="UoS Seat Monitor",
+            title=title,
+            msg=body,
+            duration="long",
+        )
+        toast.set_audio(audio.Default, loop=False)
+        toast.show()
         logger.info("Windows toast sent: %s", title)
     except Exception as exc:
         logger.warning("Windows toast failed: %s", exc)
