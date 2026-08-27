@@ -71,7 +71,8 @@ def all_target_crns(cfg: dict) -> list[str]:
     crns += se.get("sections_in_preference_order", [])
     watch_only = cfg.get("watch_only", {})
     crns += list(watch_only.values())
-    return crns
+    # Preserve order while removing any duplicates
+    return list(dict.fromkeys(c for c in crns if c))
 
 
 def load_state() -> dict[str, dict]:
