@@ -104,8 +104,8 @@ def evaluate_and_alert(
     Returns updated state.
     """
     now = time.time()
-    req = cfg["required"]
-    micro = req["micro"]
+    req = cfg.get("required", {})
+    micro = req.get("micro")
     se = req.get("se", {})
 
     # --- Per-CRN individual alerts ---
@@ -138,69 +138,70 @@ def evaluate_and_alert(
         state[crn] = crn_state
 
     # --- MICRO bundle alerts ---
-    lecture_crn = micro["lecture"]
-    lab_crns = micro["labs_in_preference_order"]  # [preferred, fallback]
+    if micro:
+        lecture_crn = micro["lecture"]
+        lab_crns = micro.get("labs_in_preference_order", [])  # [preferred, fallback]
 
-    lecture_open = (seats.get(lecture_crn) or 0) > 0
-    preferred_lab_open = len(lab_crns) > 0 and (seats.get(lab_crns[0]) or 0) > 0
-    fallback_lab_open = len(lab_crns) > 1 and (seats.get(lab_crns[1]) or 0) > 0
+        lecture_open = (seats.get(lecture_crn) or 0) > 0
+        preferred_lab_open = len(lab_crns) > 0 and (seats.get(lab_crns[0]) or 0) > 0
+        fallback_lab_open = len(lab_crns) > 1 and (seats.get(lab_crns[1]) or 0) > 0
 
-    preferred_bundle = lecture_open and preferred_lab_open
-    fallback_bundle = lecture_open and fallback_lab_open
+        preferred_bundle = lecture_open and preferred_lab_open
+        fallback_bundle = lecture_open and fallback_lab_open
 
-    bundle_state = state.setdefault("_micro_bundle", {"last_alerted": 0, "level": None})
-    last_bundle_alert = bundle_state.get("last_alerted", 0)
-    current_level = bundle_state.get("level")
+        bundle_state = state.setdefault("_micro_bundle", {"last_alerted": 0, "level": None})
+        last_bundle_alert = bundle_state.get("last_alerted", 0)
+        current_level = bundle_state.get("level")
 
-    if preferred_bundle:
-        new_level = "preferred"
-        if current_level != "preferred" or (now - last_bundle_alert) >= COOLDOWN_SECONDS:
-            send_alert(
-                "UOS MICRO BUNDLE OPEN - PREFERRED",
-                f"CRITICAL - PREFERRED MICRO BUNDLE OPEN\n"
-                f"Lecture: {lecture_crn}\n"
-                f"Preferred lab: {lab_crns[0]}\n"
-                f"Both currently have seats. Register both together IMMEDIATELY.",
-                priority="critical",
-            )
-            bundle_state["last_alerted"] = now
-        bundle_state["level"] = new_level
-    elif fallback_bundle:
-        new_level = "fallback"
-        if current_level != "fallback" or (now - last_bundle_alert) >= COOLDOWN_SECONDS:
-            send_alert(
-                "UOS MICRO BUNDLE OPEN - FALLBACK",
-                f"CRITICAL - FALLBACK MICRO BUNDLE OPEN\n"
-                f"Lecture: {lecture_crn}\n"
-                f"Fallback lab: {lab_crns[1] if len(lab_crns) > 1 else 'N/A'}\n"
-                f"Register both together IMMEDIATELY.",
-                priority="critical",
-            )
-            bundle_state["last_alerted"] = now
-        bundle_state["level"] = new_level
-    elif lecture_open or preferred_lab_open or fallback_lab_open:
-        new_level = "partial"
-        if current_level != "partial" or (now - last_bundle_alert) >= COOLDOWN_SECONDS:
-            open_parts = []
-            if lecture_open:
-                open_parts.append(f"Lecture {lecture_crn}")
-            if preferred_lab_open:
-                open_parts.append(f"Preferred lab {lab_crns[0]}")
-            if fallback_lab_open and len(lab_crns) > 1:
-                open_parts.append(f"Fallback lab {lab_crns[1]}")
-            send_alert(
-                "HIGH - PARTIAL MICRO AVAILABILITY",
-                f"PARTIAL MICRO AVAILABILITY\n"
-                f"Open: {', '.join(open_parts)}\n"
-                f"Wait for the paired component before registering.",
-                priority="high",
-            )
-            bundle_state["last_alerted"] = now
-        bundle_state["level"] = new_level
-    else:
-        bundle_state["level"] = None
+        if preferred_bundle:
+            new_level = "preferred"
+            if current_level != "preferred" or (now - last_bundle_alert) >= COOLDOWN_SECONDS:
+                send_alert(
+                    "UOS MICRO BUNDLE OPEN - PREFERRED",
+                    f"CRITICAL - PREFERRED MICRO BUNDLE OPEN\n"
+                    f"Lecture: {lecture_crn}\n"
+                    f"Preferred lab: {lab_crns[0]}\n"
+                    f"Both currently have seats. Register both together IMMEDIATELY.",
+                    priority="critical",
+                )
+                bundle_state["last_alerted"] = now
+            bundle_state["level"] = new_level
+        elif fallback_bundle:
+            new_level = "fallback"
+            if current_level != "fallback" or (now - last_bundle_alert) >= COOLDOWN_SECONDS:
+                send_alert(
+                    "UOS MICRO BUNDLE OPEN - FALLBACK",
+                    f"CRITICAL - FALLBACK MICRO BUNDLE OPEN\n"
+                    f"Lecture: {lecture_crn}\n"
+                    f"Fallback lab: {lab_crns[1] if len(lab_crns) > 1 else 'N/A'}\n"
+                    f"Register both together IMMEDIATELY.",
+                    priority="critical",
+                )
+                bundle_state["last_alerted"] = now
+            bundle_state["level"] = new_level
+        elif lecture_open or preferred_lab_open or fallback_lab_open:
+            new_level = "partial"
+            if current_level != "partial" or (now - last_bundle_alert) >= COOLDOWN_SECONDS:
+                open_parts = []
+                if lecture_open:
+                    open_parts.append(f"Lecture {lecture_crn}")
+                if preferred_lab_open:
+                    open_parts.append(f"Preferred lab {lab_crns[0]}")
+                if fallback_lab_open and len(lab_crns) > 1:
+                    open_parts.append(f"Fallback lab {lab_crns[1]}")
+                send_alert(
+                    "HIGH - PARTIAL MICRO AVAILABILITY",
+                    f"PARTIAL MICRO AVAILABILITY\n"
+                    f"Open: {', '.join(open_parts)}\n"
+                    f"Wait for the paired component before registering.",
+                    priority="high",
+                )
+                bundle_state["last_alerted"] = now
+            bundle_state["level"] = new_level
+        else:
+            bundle_state["level"] = None
 
-    state["_micro_bundle"] = bundle_state
+        state["_micro_bundle"] = bundle_state
 
     # --- SE bundle alerts ---
     se_crns = se.get("sections_in_preference_order", [])

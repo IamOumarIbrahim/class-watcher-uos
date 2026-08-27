@@ -6,16 +6,20 @@
   "registered_crns": [
     "11991",
     "12780",
-    "12129"
+    "12129",
+    "12011",
+    "12115",
+    "12015"
   ],
   "ignored_crns": [
     "12769",
-    "11990"
+    "11990",
+    "12014",
+    "11989",
+    "13732"
   ],
   "required": {
     "individual": {
-      "OS": "12011",
-      "COMM": "12115",
       "NETSEC": "12126"
     },
     "micro": {
@@ -25,22 +29,11 @@
         "12094"
       ],
       "required_lab_count": 1
-    },
-    "se": {
-      "sections_in_preference_order": [
-        "12014",
-        "12015"
-      ],
-      "required_section_count": 1,
-      "course_code": "1501366",
-      "note": "Register exactly one SE section; 12014 preferred, 12015 fallback"
     }
   },
   "watch_only": {
-    "DATA-B": "11989",
     "TELE-LAB": "12781",
-    "MICRO-LAB-EXTRA": "13538",
-    "COMM-B": "13732"
+    "MICRO-LAB-EXTRA": "13538"
   },
   "poll_seconds": 30,
   "poll_jitter_seconds": 5

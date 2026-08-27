@@ -10,39 +10,35 @@ The monitor is a notification tool only. It must **never register, add, drop, wa
 
 ## Student's Current Registration
 
-These courses are already registered and must not be monitored as missing:
+These courses are already registered:
 
 | Course | CRN | Subject/course code | State |
 |---|---:|---:|---|
 | DATA | `11991` | `1501 263` | Registered |
 | TELE | `12780` | `0402 347` | Registered |
+| TELE LAB | `12781` | `0402 347` | Registered (watching) |
 | SDP | `12129` | `1502 491` | Registered |
+| OS | `12011` | `1501 352` | Registered |
+| COMM | `12115` | `1502 346` | Registered |
+| SE | `12015` | `1501 366` | Registered |
 
-Important corrections:
-
-- DATA is CRN `11991`, not `11990`.
-- TELE is CRN `12780`, not `12781`.
-- CTRL must not be monitored or registered.
-
-## Courses Still Required
+## Courses Still Monitored / Required
 
 | Requirement | CRN | Subject/course code | Rule |
 |---|---:|---:|---|
 | MICRO lecture | `12091` | `1502 232` | Required |
 | MICRO lab - preferred | `12093` | `1502 232` | Preferred lab alternative |
 | MICRO lab - fallback | `12094` | `1502 232` | Acceptable alternative; late session |
-| OS | `12011` | `1501 352` | Required |
-| COMM | `12115` | `1502 346` | Required |
+| MICRO lab - extra | `13538` | `1502 232` | Alternative lab option (watch only) |
 | NETSEC | `12126` | `1502 444` | Required |
-| SE - section A | `12014` | `1501 366` | Required |
-| SE - section B | `12015` | `1501 366` | Required |
+| TELE LAB | `12781` | `0402 347` | Monitored |
 
 The MICRO requirement is a linked bundle:
 
 ```text
 MICRO is satisfied only by:
 
-12091 AND (12093 OR 12094)
+12091 AND (12093 OR 12094 OR 13538)
 ```
 
 Preference order:
@@ -58,10 +54,10 @@ The desired final registration is:
 
 ```text
 Already registered:
-11991, 12780, 12129
+11991, 12780, 12781, 12129, 12011, 12115, 12015
 
 Still required:
-12011, 12115, 12126, 12091, one of {12093, 12094}, and one of {12014, 12015}
+12126 (NETSEC), 12091 (MICRO lecture), and one of {12093, 12094, 13538} (MICRO lab)
 ```
 
 The monitor succeeds operationally when it:
@@ -288,25 +284,37 @@ Use a machine-readable configuration equivalent to:
     "code": "202610",
     "name": "Fall 2026/2027"
   },
-  "registered_crns": ["11991", "12780", "12129"],
-  "ignored_crns": ["11990", "12769", "12781"],
+  "registered_crns": [
+    "11991",
+    "12780",
+    "12129",
+    "12011",
+    "12115",
+    "12015"
+  ],
+  "ignored_crns": [
+    "12769",
+    "11990",
+    "12014",
+    "11989",
+    "13732"
+  ],
   "required": {
     "individual": {
-      "OS": "12011",
-      "COMM": "12115",
       "NETSEC": "12126"
     },
     "micro": {
       "lecture": "12091",
-      "labs_in_preference_order": ["12093", "12094"],
+      "labs_in_preference_order": [
+        "12093",
+        "12094"
+      ],
       "required_lab_count": 1
-    },
-    "se": {
-      "sections_in_preference_order": ["12014", "12015"],
-      "required_section_count": 1,
-      "course_code": "1501366",
-      "note": "Register exactly one SE section; 12014 preferred, 12015 fallback"
     }
+  },
+  "watch_only": {
+    "TELE-LAB": "12781",
+    "MICRO-LAB-EXTRA": "13538"
   },
   "poll_seconds": 30,
   "poll_jitter_seconds": 5
