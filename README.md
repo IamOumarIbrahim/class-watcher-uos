@@ -16,35 +16,70 @@ Click the link below to download the Windows App:
 
 ---
 
-## Super Easy 3-Step Setup Guide
+## Step-by-Step Visual Installation Guide
 
-Follow these 3 simple steps to start watching your classes:
+Follow these steps to set up and run the monitor:
 
-### Step 1: Install the App
-1. Download `UoS-Course-Seat-Monitor-Setup.exe` from the link above.
-2. Double-click to install (click *Next -> Next -> Finish*).
-3. Open **UoS Course Seat Monitor** from your Desktop or Start Menu.
+### Step 1: Download the Installer
+Click the **Direct Download** link on the GitHub page to download `UoS-Course-Seat-Monitor-Setup.exe`.
+
+![Step 1 - Download the Installer](docs/images/1.png)
 
 ---
 
-### Step 2: Set Up Phone Alerts (Takes 30 Seconds)
-To get push notifications straight to your phone when a seat opens:
+### Step 2: Open the Downloaded Setup File
+Open your browser download history or Downloads folder and click `UoS-Course-Seat-Monitor-Setup.exe`.
+
+![Step 2 - Open the Setup File](docs/images/2.png)
+
+---
+
+### Step 3: Windows Protection Prompt (Click "More info")
+If the Windows Defender SmartScreen window appears, click **More info**.
+
+![Step 3 - Click More info](docs/images/3.png)
+
+---
+
+### Step 4: Click "Run anyway"
+Click the **Run anyway** button to launch the installer wizard.
+
+![Step 4 - Click Run anyway](docs/images/4.png)
+
+---
+
+### Step 5: Setup Wizard (Click "Next")
+Select your preferred installation directory (or keep the default) and click **Next**.
+
+![Step 5 - Setup Wizard](docs/images/5.png)
+
+---
+
+### Step 6: Complete Installation (Click "Finish")
+Keep **Launch UoS Course Seat Monitor** selected and click **Finish**.
+
+![Step 6 - Complete Installation](docs/images/6.png)
+
+---
+
+### Step 7: Configure and Start Monitoring
+1. Type the 5-digit CRNs you want to watch with optional course labels.
+2. Enter your private **ntfy Topic Name** for phone alerts (and optional Gmail details).
+3. Click **Test Alerts** to verify your devices receive notifications.
+4. Click **Start Monitoring** to begin live monitoring.
+
+![Step 7 - Application Interface](docs/images/7.png)
+
+---
+
+## Setting Up Phone Alerts (ntfy App)
 
 1. On your phone, install the free **ntfy** app:
    - [Download for iPhone (Apple App Store)](https://apps.apple.com/us/app/ntfy/id1625396347)
    - [Download for Android (Google Play Store)](https://play.google.com/store/apps/details?id=io.heckel.ntfy)
 2. Open the **ntfy** app on your phone, tap **+ (Add Topic)**, and type any secret name you like (for example: `uos-student-alerts-77`).
 3. In the Windows monitor app, type that exact same name in the **"ntfy Topic Name"** box.
-4. *(Optional)* If you also want email notifications, check **"Enable Gmail Alerts"** and enter your Gmail address.
-
----
-
-### Step 3: Enter Course CRNs and Click Start
-1. Type the **5-digit CRNs** of the classes you want to watch (e.g. `12091`, `12126`).
-2. Type a course label next to each (e.g. `MICRO-LEC`, `NETSEC`).
-3. Click **"Test Alerts"** — your phone and computer will instantly ring with a test notification.
-4. Click **"Start Monitoring"**.
-5. **Keep your computer plugged in, awake, and connected to WiFi.** That is it.
+4. Click **Test Alerts** to confirm your phone rings!
 
 ---
 
