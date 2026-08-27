@@ -6,7 +6,25 @@ toasts, and audible alerts the moment a seat becomes available.
 
 **Never registers, drops, or modifies courses automatically.**
 
-## Quick Setup
+---
+
+## 📥 1-Click Windows Download (Recommended)
+
+Download the standalone installer — no Python installation required!
+
+[![Download Windows Installer](https://img.shields.io/badge/Download-Windows_Installer_(.exe)-2ea44f?style=for-the-badge&logo=windows)](https://github.com/IamOumarIbrahim/class-watcher-uos/releases/download/v1.0.0/UoS-Course-Seat-Monitor-Setup.exe)
+
+👉 **[Download UoS-Course-Seat-Monitor-Setup.exe (v1.0.0)](https://github.com/IamOumarIbrahim/class-watcher-uos/releases/download/v1.0.0/UoS-Course-Seat-Monitor-Setup.exe)**
+
+1. Download and run `UoS-Course-Seat-Monitor-Setup.exe`.
+2. Follow the 1-click setup wizard to install to your computer and desktop.
+3. Open **UoS Course Seat Monitor** from your Desktop or Start Menu!
+
+---
+
+## 🛠️ Developer / Python Setup
+
+If running from source code:
 
 ```powershell
 cd uos-seat-monitor
@@ -16,7 +34,7 @@ cd uos-seat-monitor
 Or manually:
 
 ```powershell
-py -3.11 -m venv .venv
+python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 Copy-Item .env.example .env
 # Edit .env — set NTFY_TOPIC to your private topic name
