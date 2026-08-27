@@ -24,7 +24,18 @@ TERM_PAGE = f"{BASE_URL}/ssb/term/termSelection?mode=search"
 SEARCH_URL = f"{BASE_URL}/ssb/searchResults/searchResults"
 TERM_SUBMIT_URL = f"{BASE_URL}/ssb/term/search?mode=search"
 
-SUBJECTS = ["1501", "1502", "0402"]  # 0402 = Telecommunications
+SUBJECTS = [
+    "1501",  # Computer Science
+    "1502",  # Computer Engineering
+    "0402",  # Electrical / Telecom Engineering
+    "1503",  # Information Technology
+    "1504",  # Cybersecurity
+    "1505",  # Artificial Intelligence
+    "1401",  # Mathematics
+    "1402",  # Physics
+    "0401",  # General Engineering
+    "0404",  # Mechanical Engineering
+]
 
 PAGE_MAX = 500
 REQUEST_TIMEOUT = 20
@@ -34,7 +45,7 @@ class BannerClient:
     """
     HTTP client for the public UoS Banner search flow.
 
-    Because Banner''s JSESSIONID is single-use per search query, we create a
+    Because Banner's JSESSIONID is single-use per search query, we create a
     fresh session for every poll cycle rather than trying to reuse one.
     """
 
@@ -50,7 +61,7 @@ class BannerClient:
         self._term_code = term_code
         # Validate connectivity: do one quick session init to confirm the
         # server is reachable and the term is accepted.
-        logger.info("Opening public term page ?")
+        logger.info("Opening public term page …")
         session = self._new_session(term_code)
         logger.info("PUBLIC TERM SESSION READY")
 
@@ -60,12 +71,16 @@ class BannerClient:
 
         A fresh HTTP session is created for every call because the Banner
         server only honours one searchResults query per JSESSIONID.
-        Results from both target subjects are combined and filtered by CRN.
+        Results from target subjects are combined and filtered by CRN.
         """
         crn_seats: dict[str, int | None] = {crn: None for crn in target_crns}
         found: dict[str, int] = {}
 
         for subject in SUBJECTS:
+            # Stop querying further subjects if all targets have already been found
+            if target_crns and all(crn in found for crn in target_crns):
+                break
+
             # Each subject query needs its own fresh session.
             try:
                 session = self._new_session(term_code)

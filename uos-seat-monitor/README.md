@@ -1,4 +1,4 @@
-﻿# UoS Seat Monitor
+# UoS Seat Monitor
 
 Monitors the University of Sharjah Banner registration system for open seats
 in your required courses. Sends push notifications (ntfy), Windows desktop
@@ -22,19 +22,36 @@ Copy-Item .env.example .env
 # Edit .env — set NTFY_TOPIC to your private topic name
 ```
 
-## Usage
+## Graphical Interface (Recommended for Students) 🖥️
+
+To launch the easy-to-use graphical monitor:
 
 ```powershell
+.\run_gui.ps1
+# or
+.\.venv\Scripts\python.exe gui.py
+```
+
+The GUI allows you to:
+- Enter up to 10 course CRNs with custom course labels.
+- Set up phone push notifications (ntfy) and Gmail alerts.
+- Follow the simple setup guide embedded in the top right corner.
+- Test alerts with 1-click.
+- View live seat availability in a real-time status table.
+
+## Command Line Usage (Terminal)
+
+```powershell
+# Continuous monitor (30 s polling)
+.\run.ps1
+# or
+.\.venv\Scripts\python.exe monitor.py
+
 # One live check — prints seat table and exits
 .\.venv\Scripts\python.exe monitor.py --once
 
-# Send a test notification to verify ntfy / toast / beep
+# Send a test notification across all channels
 .\.venv\Scripts\python.exe monitor.py --test-notification
-
-# Continuous monitor (30 s polling)
-.\.venv\Scripts\python.exe monitor.py
-# or
-.\run.ps1
 ```
 
 ## Target CRNs
