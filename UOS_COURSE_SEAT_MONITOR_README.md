@@ -10,11 +10,11 @@ The monitor is a notification tool only. It must **never register, add, drop, wa
 
 ---
 
-## 📥 1-Click Windows Download
+## 1-Click Windows Download
 
 [![Download Windows Installer](https://img.shields.io/badge/Download-Windows_Installer_(.exe)-2ea44f?style=for-the-badge&logo=windows)](https://github.com/IamOumarIbrahim/class-watcher-uos/releases/download/v1.0.0/UoS-Course-Seat-Monitor-Setup.exe)
 
-👉 **[Download UoS-Course-Seat-Monitor-Setup.exe (v1.0.0)](https://github.com/IamOumarIbrahim/class-watcher-uos/releases/download/v1.0.0/UoS-Course-Seat-Monitor-Setup.exe)**
+**Download:** [**UoS-Course-Seat-Monitor-Setup.exe (v1.0.0)**](https://github.com/IamOumarIbrahim/class-watcher-uos/releases/download/v1.0.0/UoS-Course-Seat-Monitor-Setup.exe)
 
 ---
 
