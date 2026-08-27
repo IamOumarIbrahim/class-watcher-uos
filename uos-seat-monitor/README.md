@@ -1,4 +1,4 @@
-﻿# 🎓 UoS Course Seat Monitor (University of Sharjah)
+# 🎓 UoS Course Seat Monitor (University of Sharjah)
 
 > **Get notified the exact second a seat opens in your required UoS classes!**  
 > 🔔 **Phone Alerts (iPhone & Android)** • 💻 **Windows Desktop Popups** • 📧 **Gmail Alerts**  
@@ -33,7 +33,7 @@ To get push notifications straight to your phone when a seat opens:
 1. On your phone, install the free **ntfy** app:
    - [📱 Download for iPhone (Apple App Store)](https://apps.apple.com/us/app/ntfy/id1625396347)
    - [📱 Download for Android (Google Play Store)](https://play.google.com/store/apps/details?id=io.heckel.ntfy)
-2. Open the **ntfy** app on your phone, tap **+ (Add Topic)**, and type any secret name you like (e.g. `uos-omar-courses-99`).
+2. Open the **ntfy** app on your phone, tap **+ (Add Topic)**, and type any secret name you like (e.g. `uos-student-alerts-77`).
 3. In the Windows monitor app, type that exact same name in the **"ntfy Topic Name"** box.
 4. *(Optional)* If you also want email notifications, check **"Enable Gmail Alerts"** and enter your Gmail address.
 
