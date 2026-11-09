@@ -37,3 +37,11 @@ cd class-watcher-uos/uos-seat-monitor
 .\install.ps1
 .\run_gui.ps1
 ```
+
+## Help the project
+
+Did this help you? Please give it a **star**, so more people can find it. Bugs and ideas are welcome in [Issues](https://github.com/IamOumarIbrahim/class-watcher-uos/issues).
+
+## License
+
+[MIT](LICENSE)
